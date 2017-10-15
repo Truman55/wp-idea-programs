@@ -1,0 +1,43 @@
+.ids_title {
+    margin-bottom: 20px!important;
+}
+
+.ids_table {
+    border-collapse: collapse;
+}
+.ids_table td, .ids_table th {
+    padding: 10px;
+    border: 1px solid;
+}
+
+.ids_price {
+    position: relative;
+}
+
+.ids_price:hover {
+    cursor: pointer;
+    box-shadow: 5px 4px 1px 0 #000;
+}
+
+.ids_price input[name="price"] {
+    width: 100%;
+    position: absolute;
+    margin: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding: 0 10px;
+}
+
+.ids_notice {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
+    background: lightgreen;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 4px;
+    z-index: 9999;
+    display: none;
+}
