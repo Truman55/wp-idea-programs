@@ -75,9 +75,10 @@ function ids_programs_view() {
             $price = $item->price != null ? $item->price : 0;
             $showOnMain = $item->is_main == '0' || $item->is_main == null ? '' : 'checked';
             $cat = get_post_ancestors($item->post_id);
+            $catName = get_the_title($cat[0]);
             $html .='
                  <tr>
-                 <td>' . get_the_title($cat[0]) . '</td>
+                 <td>' . $catName . '</td>
                  <td>' . get_the_post_thumbnail($item->post_id, array(50, 50)) . '</td>
                  <td><a href="' . get_edit_post_link($item->post_id) . '" title="Редактировать описание">'.$item->post_title .'</a></td>
                  <td class="ids_price" title="Редактировать цену">
@@ -85,7 +86,7 @@ function ids_programs_view() {
                     <input type="hidden" name="course_id" value="'.$item->post_id.'">
                     <input type="hidden" name="price" value="'. $price .'">
                  </td>
-                 <td><input type="checkbox" name="is_main" ' . $showOnMain . '></td>   
+                 <td data-cat="'.$catName.'"><input type="checkbox" name="is_main" ' . $showOnMain . '></td>   
                  </tr>';
         }
 
@@ -171,14 +172,17 @@ function ids_best_courses($args) {
     foreach ($data as $course) {
         $i++;
         $class = 'col-md-6';
+        $programClass = $course->post_title == 'Первые механизмы' ? ' programs__course_border' : '';
+
         if ($i % 3 == 0) {
             $class ='col-md-12';
         }
+
         $parent = get_post_ancestors($course->page_id);
         $course_img_url = get_the_post_thumbnail_url($course->page_id, array(200, 200));
         if ((int)$parent[0] === $program) {
             $response_html .= '<div class="col-12 ' .$class .' col-xl-4">
-                               <div class="programs__course" style="background-image: url('.$course_img_url.')"><span class="programs__price">От '.$course->price.' р.</span></div>
+                               <div class="programs__course'.$programClass.'" style="background-image: url('.$course_img_url.')"><span class="programs__price">От '.$course->price.' р.</span></div>
                                <p class="programs__course-desc">' .$course->post_title. '</p></div>';
         }
     }
